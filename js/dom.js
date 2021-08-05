@@ -25,25 +25,21 @@ function addBook() {
 function makeBook(idBook, inputTitle, inputAuthor, inputYear, inputIsComplete) {
     const book = document.createElement("article");
     book.setAttribute("id", idBook)
-    book.classList.add("card", "my-3");
+    book.classList.add("book_item");
 
     const bookTitle = document.createElement("h5");
-    bookTitle.classList.add("text-truncate");
-    bookTitle.style.maxWidth = "200px";
+    bookTitle.classList.add("titleBook");
     bookTitle.innerText = inputTitle;
 
     const bookAuthor = document.createElement("span");
-    bookAuthor.classList.add("text-truncate", "d-inline-block");
-    bookAuthor.style.maxWidth = "200px";
+    bookAuthor.classList.add("authorBook");
     bookAuthor.innerText = inputAuthor;
 
     const bookYear = document.createElement("span");
+    bookAuthor.classList.add("yearBook");
     bookYear.innerText = inputYear;
 
     const br = document.createElement("br");
-
-    const cardContainer = document.createElement("div");
-    cardContainer.classList.add("card-body", "border-start", "border-4", "border-info", "d-flex", "justify-content-between");
 
     const cardContent = document.createElement("div");
     cardContent.classList.add("card-content");
@@ -51,9 +47,8 @@ function makeBook(idBook, inputTitle, inputAuthor, inputYear, inputIsComplete) {
     const cardAction = addAction(inputIsComplete, idBook);
 
     cardContent.append(bookTitle, bookAuthor, br, bookYear);
-    cardContainer.append(cardContent);
-    cardContainer.append(cardAction);
-    book.append(cardContainer);
+    book.append(cardContent);
+    book.append(cardAction);
 
     return book;
 }
@@ -107,7 +102,7 @@ function createActionRead(idBook) {
     action.addEventListener("click", function () {
         const cardParent = document.getElementById(idBook);
 
-        const bookTitle = cardParent.querySelector(".card-content > h5").innerText;
+        const bookTitle = cardParent.querySelector(".card-content > h3").innerText;
         const bookAuthor = cardParent.querySelectorAll(".card-content > span")[0].innerText;
         const bookYear = cardParent.querySelectorAll(".card-content > span")[1].innerText;
 
@@ -161,9 +156,9 @@ function bookSearch(keyword) {
         const titlesText = titles[i].textContent || titles[i].innerText;
 
         if (titlesText.toUpperCase().indexOf(filter) > -1) {
-            titles[i].closest(".card").style.display = "";
+            titles[i].closest(".book_item").style.display = "";
         } else {
-            titles[i].closest(".card").style.display = "none";
+            titles[i].closest(".book_item").style.display = "none";
         }
     }
 }
