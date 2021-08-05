@@ -27,25 +27,25 @@ function makeBook(idBook, inputTitle, inputAuthor, inputYear, inputIsComplete) {
     book.setAttribute("id", idBook)
     book.classList.add("book_item");
 
-    const bookTitle = document.createElement("h3");
-    bookTitle.classList.add("titleBook");
-    bookTitle.innerText = inputTitle;
+    const titleBook = document.createElement("h3");
+    titleBook.classList.add("titleBook");
+    titleBook.innerText = inputTitle;
 
-    const bookAuthor = document.createElement("span");
-    bookAuthor.innerText = inputAuthor;
+    const authorBook = document.createElement("span");
+    authorBook.innerText = inputAuthor;
 
-    const bookYear = document.createElement("span");
-    bookYear.innerText = inputYear;
+    const yearBook = document.createElement("span");
+    yearBook.innerText = inputYear;
 
     const br = document.createElement("br");
 
-    const cardContent = document.createElement("div");
-    cardContent.classList.add("card-content");
+    const content = document.createElement("div");
+    content.classList.add("content");
 
-    const cardAction = addAction(inputIsComplete, idBook);
+    const actionButton = addAction(inputIsComplete, idBook);
 
-    cardContent.append(bookTitle, bookAuthor, br, bookYear);
-    book.append(cardContent, cardAction);
+    content.append(titleBook, authorBook, br, yearBook);
+    book.append(content, actionButton);
 
     return book;
 }
@@ -54,9 +54,9 @@ function addAction(inputIsComplete, idBook) {
     const cardActions = document.createElement("div");
     cardActions.classList.add("action");
 
-    const actionDelete = createActionDelete(idBook);
-    const actionRead = createActionRead(idBook);
-    const actionUndo = createActionUndo(idBook);
+    const actionDelete = deleteButton(idBook);
+    const actionRead = readButton(idBook);
+    const actionUndo = undoButton(idBook);
 
     if (inputIsComplete) {
         cardActions.append(actionUndo);
@@ -69,7 +69,7 @@ function addAction(inputIsComplete, idBook) {
     return cardActions;
 }
 
-function createActionDelete(idBook) {
+function deleteButton(idBook) {
     const actionDelete = document.createElement("button");
     actionDelete.classList.add("red");
     actionDelete.innerHTML = '<p>Hapus Buku</p>';
@@ -88,7 +88,7 @@ function createActionDelete(idBook) {
     return actionDelete;
 }
 
-function createActionRead(idBook) {
+function readButton(idBook) {
     const actions = document.createElement("button");
     actions.classList.add("green");
     actions.innerHTML = '<p>Selesai Dibaca</p>';
@@ -96,17 +96,17 @@ function createActionRead(idBook) {
     actions.addEventListener("click", function () {
         const cardParent = document.getElementById(idBook);
 
-        const bookTitle = cardParent.querySelector(".card-content > h3").innerText;
-        const bookAuthor = cardParent.querySelectorAll(".card-content > span")[0].innerText;
-        const bookYear = cardParent.querySelectorAll(".card-content > span")[1].innerText;
+        const titleBook = cardParent.querySelector(".content > h3").innerText;
+        const authorBook = cardParent.querySelectorAll(".content > span")[0].innerText;
+        const yearBook = cardParent.querySelectorAll(".content > span")[1].innerText;
 
         cardParent.remove();
 
-        const book = makeBook(idBook, bookTitle, bookAuthor, bookYear, true);
+        const book = makeBook(idBook, titleBook, authorBook, yearBook, true);
         document.getElementById(COMPLETE_BOOK).append(book);
 
         deleteBookFromJson(idBook);
-        const bookObject = composeBookObject(idBook, bookTitle, bookAuthor, bookYear, true);
+        const bookObject = composeBookObject(idBook, titleBook, authorBook, yearBook, true);
 
         books.push(bookObject);
         updateJson();
@@ -115,7 +115,7 @@ function createActionRead(idBook) {
     return actions;
 }
 
-function createActionUndo(idBook) {
+function undoButton(idBook) {
     const action = document.createElement("button");
     action.classList.add("green");
     action.innerHTML = '<p>Belum Selesai Dibaca</p>';
@@ -123,17 +123,17 @@ function createActionUndo(idBook) {
     action.addEventListener("click", function () {
         const cardParent = document.getElementById(idBook);
 
-        const bookTitle = cardParent.querySelector(".card-content > h3").innerText;
-        const bookAuthor = cardParent.querySelectorAll(".card-content > span")[0].innerText;
-        const bookYear = cardParent.querySelectorAll(".card-content > span")[1].innerText;
+        const titleBook = cardParent.querySelector(".content > h3").innerText;
+        const authorBook = cardParent.querySelectorAll(".content > span")[0].innerText;
+        const yearBook = cardParent.querySelectorAll(".content > span")[1].innerText;
 
         cardParent.remove();
 
-        const book = makeBook(idBook, bookTitle, bookAuthor, bookYear, false);
+        const book = makeBook(idBook, titleBook, authorBook, yearBook, false);
         document.getElementById(INCOMPLETE_BOOK).append(book);
 
         deleteBookFromJson(idBook);
-        const bookObject = composeBookObject(idBook, bookTitle, bookAuthor, bookYear, false);
+        const bookObject = composeBookObject(idBook, titleBook, authorBook, yearBook, false);
 
         books.push(bookObject);
         updateJson();
