@@ -1,27 +1,6 @@
 const INCOMPLETE_BOOK = "incompleteBookshelfList";
 const COMPLETE_BOOK = "completeBookshelfList";
 
-function addBook() {
-    const idBook = +new Date();
-    const inputTitle = document.getElementById("inputBookTitle").value;
-    const inputAuthor = document.getElementById("inputBookAuthor").value;
-    const inputYear = document.getElementById("inputBookYear").value;
-    const inputIsComplete = document.getElementById("inputBookIsComplete").checked;
-
-    const book = makeBook(idBook, inputTitle, inputAuthor, inputYear, inputIsComplete);
-    const bookObject = composeBookObject(idBook, inputTitle, inputAuthor, inputYear, inputIsComplete);
-
-    books.push(bookObject);
-
-    if (inputIsComplete) {
-        document.getElementById(COMPLETE_BOOK).append(book);
-    } else {
-        document.getElementById(INCOMPLETE_BOOK).append(book);
-    }
-
-    updateJson();
-}
-
 function makeBook(idBook, inputTitle, inputAuthor, inputYear, inputIsComplete) {
     const book = document.createElement("article");
     book.setAttribute("id", idBook)
@@ -48,6 +27,27 @@ function makeBook(idBook, inputTitle, inputAuthor, inputYear, inputIsComplete) {
     book.append(content, actionButton);
 
     return book;
+}
+
+function addBook() {
+    const idBook = +new Date();
+    const inputTitle = document.getElementById("inputBookTitle").value;
+    const inputAuthor = document.getElementById("inputBookAuthor").value;
+    const inputYear = document.getElementById("inputBookYear").value;
+    const inputIsComplete = document.getElementById("inputBookIsComplete").checked;
+
+    const book = makeBook(idBook, inputTitle, inputAuthor, inputYear, inputIsComplete);
+    const bookObject = composeBookObject(idBook, inputTitle, inputAuthor, inputYear, inputIsComplete);
+
+    books.push(bookObject);
+
+    if (inputIsComplete) {
+        document.getElementById(COMPLETE_BOOK).append(book);
+    } else {
+        document.getElementById(INCOMPLETE_BOOK).append(book);
+    }
+
+    updateJson();
 }
 
 function addAction(inputIsComplete, idBook) {
