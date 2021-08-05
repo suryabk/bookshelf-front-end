@@ -27,16 +27,14 @@ function makeBook(idBook, inputTitle, inputAuthor, inputYear, inputIsComplete) {
     book.setAttribute("id", idBook)
     book.classList.add("book_item");
 
-    const bookTitle = document.createElement("h5");
+    const bookTitle = document.createElement("h3");
     bookTitle.classList.add("titleBook");
     bookTitle.innerText = inputTitle;
 
     const bookAuthor = document.createElement("span");
-    bookAuthor.classList.add("authorBook");
     bookAuthor.innerText = inputAuthor;
 
     const bookYear = document.createElement("span");
-    bookAuthor.classList.add("yearBook");
     bookYear.innerText = inputYear;
 
     const br = document.createElement("br");
@@ -47,8 +45,7 @@ function makeBook(idBook, inputTitle, inputAuthor, inputYear, inputIsComplete) {
     const cardAction = addAction(inputIsComplete, idBook);
 
     cardContent.append(bookTitle, bookAuthor, br, bookYear);
-    book.append(cardContent);
-    book.append(cardAction);
+    book.append(cardContent, cardAction);
 
     return book;
 }
@@ -61,26 +58,23 @@ function addAction(inputIsComplete, idBook) {
     const actionRead = createActionRead(idBook);
     const actionUndo = createActionUndo(idBook);
 
-    cardActions.append(actionDelete);
-
     if (inputIsComplete) {
         cardActions.append(actionUndo);
     } else {
         cardActions.append(actionRead);
     }
 
+    cardActions.append(actionDelete);
+
     return cardActions;
 }
 
 function createActionDelete(idBook) {
     const actionDelete = document.createElement("button");
-    actionDelete.classList.add("btn", "btn-sm", "btn-outline-danger", "mx-1");
-    actionDelete.innerHTML = '<i class="bi bi-x"></i>';
+    actionDelete.classList.add("red");
+    actionDelete.innerHTML = '<p>Hapus Buku</p>';
 
     actionDelete.addEventListener("click", function () {
-        let confirmation = confirm("apakah anda yakin ingin menghapus buku?");
-
-        if (confirmation) {
             const cardParent = document.getElementById(idBook);
             cardParent.addEventListener("eventDelete", function (event) {
                 event.target.remove();
@@ -89,7 +83,6 @@ function createActionDelete(idBook) {
 
             deleteBookFromJson(idBook);
             updateJson();
-        }
     });
 
     return actionDelete;
@@ -97,8 +90,8 @@ function createActionDelete(idBook) {
 
 function createActionRead(idBook) {
     const actions = document.createElement("button");
-    actions.classList.add("btn", "btn-sm", "btn-outline-primary");
-    actions.innerHTML = '<i class="bi bi-check"></i>';
+    actions.classList.add("green");
+    actions.innerHTML = '<p>Selesai Dibaca</p>';
 
     actions.addEventListener("click", function () {
         const cardParent = document.getElementById(idBook);
@@ -124,13 +117,13 @@ function createActionRead(idBook) {
 
 function createActionUndo(idBook) {
     const action = document.createElement("button");
-    action.classList.add("btn", "btn-sm", "btn-outline-secondary");
-    action.innerHTML = '<i class="bi bi-arrow-counterclockwise"></i>';
+    action.classList.add("green");
+    action.innerHTML = '<p>Belum Selesai Dibaca</p>';
 
     action.addEventListener("click", function () {
         const cardParent = document.getElementById(idBook);
 
-        const bookTitle = cardParent.querySelector(".card-content > h5").innerText;
+        const bookTitle = cardParent.querySelector(".card-content > h3").innerText;
         const bookAuthor = cardParent.querySelectorAll(".card-content > span")[0].innerText;
         const bookYear = cardParent.querySelectorAll(".card-content > span")[1].innerText;
 
@@ -151,7 +144,7 @@ function createActionUndo(idBook) {
 
 function bookSearch(keyword) {
     const filter = keyword.toUpperCase();
-    const titles = document.getElementsByTagName("h5");
+    const titles = document.getElementsByTagName("h3");
 
     for (let i = 0; i < titles.length; i++) {
         const titlesText = titles[i].textContent || titles[i].innerText;
