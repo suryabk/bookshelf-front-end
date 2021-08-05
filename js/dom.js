@@ -55,6 +55,7 @@ function makeBook(idBook, inputTitle, inputAuthor, inputYear, inputIsComplete) {
 
 function addAction(inputIsComplete, idBook) {
     const cardActions = document.createElement("div");
+    cardActions.classList.add("action");
 
     const actionDelete = createActionDelete(idBook);
     const actionRead = createActionRead(idBook);
@@ -95,11 +96,11 @@ function createActionDelete(idBook) {
 }
 
 function createActionRead(idBook) {
-    const action = document.createElement("button");
-    action.classList.add("btn", "btn-sm", "btn-outline-primary");
-    action.innerHTML = '<i class="bi bi-check"></i>';
+    const actions = document.createElement("button");
+    actions.classList.add("btn", "btn-sm", "btn-outline-primary");
+    actions.innerHTML = '<i class="bi bi-check"></i>';
 
-    action.addEventListener("click", function () {
+    actions.addEventListener("click", function () {
         const cardParent = document.getElementById(idBook);
 
         const bookTitle = cardParent.querySelector(".card-content > h3").innerText;
@@ -118,7 +119,7 @@ function createActionRead(idBook) {
         updateJson();
     })
 
-    return action;
+    return actions;
 }
 
 function createActionUndo(idBook) {
