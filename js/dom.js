@@ -3,17 +3,17 @@ const COMPLETE_BOOK = "completeBookshelfList";
 
 function addBook() {
     const idBook = +new Date();
-    const inputBookTitle = document.getElementById("inputBookTitle").value;
-    const inputBookAuthor = document.getElementById("inputBookAuthor").value;
-    const inputBookYear = document.getElementById("inputBookYear").value;
-    const inputBookIsComplete = document.getElementById("inputBookIsComplete").checked;
+    const inputTitle = document.getElementById("inputBookTitle").value;
+    const inputAuthor = document.getElementById("inputBookAuthor").value;
+    const inputYear = document.getElementById("inputBookYear").value;
+    const inputIsComplete = document.getElementById("inputBookIsComplete").checked;
 
-    const book = createBook(idBook, inputBookTitle, inputBookAuthor, inputBookYear, inputBookIsComplete);
-    const bookObject = composeBookObject(idBook, inputBookTitle, inputBookAuthor, inputBookYear, inputBookIsComplete);
+    const book = makeBook(idBook, inputTitle, inputAuthor, inputYear, inputIsComplete);
+    const bookObject = composeBookObject(idBook, inputTitle, inputAuthor, inputYear, inputIsComplete);
 
     books.push(bookObject);
 
-    if (inputBookIsComplete) {
+    if (inputIsComplete) {
         document.getElementById(COMPLETE_BOOK).append(book);
     } else {
         document.getElementById(INCOMPLETE_BOOK).append(book);
@@ -22,7 +22,7 @@ function addBook() {
     updateJson();
 }
 
-function createBook(idBook, inputBookTitle, inputBookAuthor, inputBookYear, inputBookIsComplete) {
+function makeBook(idBook, inputTitle, inputAuthor, inputYear, inputIsComplete) {
     const book = document.createElement("article");
     book.setAttribute("id", idBook)
     book.classList.add("card", "my-3");
@@ -30,15 +30,15 @@ function createBook(idBook, inputBookTitle, inputBookAuthor, inputBookYear, inpu
     const bookTitle = document.createElement("h5");
     bookTitle.classList.add("text-truncate");
     bookTitle.style.maxWidth = "200px";
-    bookTitle.innerText = inputBookTitle;
+    bookTitle.innerText = inputTitle;
 
     const bookAuthor = document.createElement("span");
     bookAuthor.classList.add("text-truncate", "d-inline-block");
     bookAuthor.style.maxWidth = "200px";
-    bookAuthor.innerText = inputBookAuthor;
+    bookAuthor.innerText = inputAuthor;
 
     const bookYear = document.createElement("span");
-    bookYear.innerText = inputBookYear;
+    bookYear.innerText = inputYear;
 
     const br = document.createElement("br");
 
@@ -48,7 +48,7 @@ function createBook(idBook, inputBookTitle, inputBookAuthor, inputBookYear, inpu
     const cardContent = document.createElement("div");
     cardContent.classList.add("card-content");
 
-    const cardAction = addAction(inputBookIsComplete, idBook);
+    const cardAction = addAction(inputIsComplete, idBook);
 
     cardContent.append(bookTitle, bookAuthor, br, bookYear);
     cardContainer.append(cardContent);
@@ -58,7 +58,7 @@ function createBook(idBook, inputBookTitle, inputBookAuthor, inputBookYear, inpu
     return book;
 }
 
-function addAction(inputBookIsComplete, idBook) {
+function addAction(inputIsComplete, idBook) {
     const cardActions = document.createElement("div");
 
     const actionDelete = createActionDelete(idBook);
@@ -67,7 +67,7 @@ function addAction(inputBookIsComplete, idBook) {
 
     cardActions.append(actionDelete);
 
-    if (inputBookIsComplete) {
+    if (inputIsComplete) {
         cardActions.append(actionUndo);
     } else {
         cardActions.append(actionRead);
@@ -113,7 +113,7 @@ function createActionRead(idBook) {
 
         cardParent.remove();
 
-        const book = createBook(idBook, bookTitle, bookAuthor, bookYear, true);
+        const book = makeBook(idBook, bookTitle, bookAuthor, bookYear, true);
         document.getElementById(COMPLETE_BOOK).append(book);
 
         deleteBookFromJson(idBook);
@@ -140,7 +140,7 @@ function createActionUndo(idBook) {
 
         cardParent.remove();
 
-        const book = createBook(idBook, bookTitle, bookAuthor, bookYear, false);
+        const book = makeBook(idBook, bookTitle, bookAuthor, bookYear, false);
         document.getElementById(INCOMPLETE_BOOK).append(book);
 
         deleteBookFromJson(idBook);
