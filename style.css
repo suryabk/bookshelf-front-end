@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 * {
     padding: 0;
     margin: 0;
@@ -5,7 +7,8 @@
 }
 
 body, input, button {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    background-color: #F5F1FF; 
 }
 
 input, button {
@@ -32,9 +35,11 @@ main {
 .input_section {
     display: flex;
     flex-direction: column;
-    padding: 16px;
-    border: 1px solid black;
+    padding: 24px;
+    border: none;
+    background-color:white; 
     border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(154, 160, 185, .05), 0 15px 40px rgba(166, 173, 201, .2);
 }
 
 .input_section > h2 {
@@ -44,6 +49,11 @@ main {
 
 .input_section > form > .input {
     margin: 8px 0;
+}
+
+.input_section > form > .input > input {
+    background: #F5F1FF;
+    border: 1px solid #1f66e5 ;
 }
 
 .input_section > form > button {
@@ -93,8 +103,10 @@ main {
     flex-direction: column;
     align-items: center;
     padding: 16px;
-    border: 1px solid black;
+    border: none;
+    background-color:white; 
     border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(154, 160, 185, .05), 0 15px 40px rgba(166, 173, 201, .2);
 }
 
 .search_section > h2 {
@@ -117,6 +129,8 @@ main {
 .search_section > form > input {
     padding: 5px;
     border-radius: 5px;
+    border: 2px solid cornflowerblue;
+
 }
 
 .search_section > form > button {
@@ -129,9 +143,11 @@ main {
 
 .book_shelf {
     margin: 16px 0 0 0;
-    border: 1px solid black;
+    border: none;
+    background-color:white; 
     padding: 16px;
     border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(154, 160, 185, .05), 0 15px 40px rgba(166, 173, 201, .2);
 }
 
 .book_shelf > h2 {
@@ -144,29 +160,46 @@ main {
 
 .book_shelf > .book_list > .book_item {
     padding: 8px 16px 16px 16px;
-    border: 1px solid black;
+    border: 2px solid cornflowerblue;
     border-radius: 5px;
     margin: 10px 0;
+    
+}
+.book_shelf > .book_list > .book_item > .card-content {
+    padding: 8px;
+    
 }
 
-.book_shelf > .book_list > .book_item > h3, p {
-    margin: 8px 0;
+.book_shelf > .book_list > .book_item > .card-content > h3, p {
+    margin: 8px;
 }
 
 .book_shelf > .book_list > .book_item > .action > button {
     border: 0;
-    padding: 5px;
-    margin: 0 5px 0 0;
+    padding: 4px 8px;
+    margin: auto;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .book_shelf > .book_list > .book_item > .action > .green {
     background-color: darkgreen;
+    margin: 4px;
+}
+
+.book_shelf > .book_list > .book_item > .action > .green > p {
     color: white;
+    margin: 4px !important;
+    font-size: 10px !important ; 
 }
 
 .book_shelf > .book_list > .book_item > .action > .red {
     background-color: darkred;
+    margin: 4px;
+}
+
+.book_shelf > .book_list > .book_item > .action > .red > p {
     color: white;
+    margin: 4px !important; 
+    font-size: 10px !important ; 
 }
