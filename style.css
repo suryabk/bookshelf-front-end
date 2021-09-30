@@ -45,6 +45,7 @@ main {
 .input_section > h2 {
     text-align: center;
     color: cornflowerblue;
+    box
 }
 
 .input_section > form > .input {
